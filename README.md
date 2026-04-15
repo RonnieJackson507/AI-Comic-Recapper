@@ -8,7 +8,7 @@ Scan any comic book barcode with your camera and get an AI-generated recap of th
 
 | Camera View | Scanning | Results |
 |----------|-------------|---------|
-| ![Camera view](docs/images/screenshot-camera.png) | ![Scanning screen](docs/images/screenshot-scanning.png) | ![Results screen](docs/images/screenshot-results.png) |
+| ![Camera view](docs/images/screenshot-camera.PNG) | ![Scanning screen](docs/images/screenshot-scanning.PNG) | ![Results screen](docs/images/screenshot-results.PNG) |
 
 ---
 
