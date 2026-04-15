@@ -1,7 +1,7 @@
 const Footer = () => {
     return (
         <footer>
-            Data provided by Marvel. © 2014 Marvel
+            Data provided by Metron.cloud
         </footer>
     );
 };

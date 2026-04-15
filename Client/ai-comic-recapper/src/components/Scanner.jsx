@@ -17,6 +17,8 @@ export default function Scanner() {
         target: videoRef.current,
         constraints: {
           facingMode: 'environment',
+          width: 640,
+          height: 480,
         },
       },
       decoder: {
@@ -28,9 +30,8 @@ export default function Scanner() {
         return;
       }
       Quagga.start();
+      Quagga.onDetected(handleDetected);
     });
-
-    Quagga.onDetected(handleDetected);
 
     return () => {
       Quagga.stop();
@@ -42,9 +43,9 @@ export default function Scanner() {
     const code = result.codeResult.code;
     if (code.length !== 12) return;
 
-    setIsScanning(false); // Stop scanning
-
     try {
+      // Capture the video frame BEFORE stopping the scanner,
+      // since setIsScanning(false) unmounts the video element
       const canvas = canvasRef.current;
       const context = canvas.getContext('2d');
       const video = videoRef.current.querySelector('video');
@@ -52,6 +53,8 @@ export default function Scanner() {
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      setIsScanning(false); // Stop scanning after frame is captured
 
       canvas.toBlob(async (blob) => {
         const formData = new FormData();
@@ -88,11 +91,11 @@ export default function Scanner() {
       {!isScanning && (
         <div className="text-center space-y-4">
           {thumbnail && (
-            <div classname="flex justify-center mt-4">
+            <div className="flex justify-center mt-4">
               <img
                 src={thumbnail}
                 alt="Comic Cover"
-                classname="max-w-xs rounded shadow-lg"
+                className="max-w-xs rounded shadow-lg"
               />
             </div>
           )}
