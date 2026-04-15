@@ -126,8 +126,7 @@ def handle_recap():
         # Get the cover image URL
         thumbnail = str(comic.image) if comic.image else ""
 
-        # Display the header
-        message = f"Here's the recap leading up to {issue_title}:\n\n"
+        message = ""
 
         # Find the previous issues to make a recap for the current comic
         try:
@@ -167,7 +166,14 @@ def handle_recap():
 
         return jsonify({
             "message": message,
-            "thumbnail": thumbnail
+            "thumbnail": thumbnail,
+            "metadata": {
+                "series_name": comic.series.name,
+                "issue_number": comic.number,
+                "publisher": comic.publisher.name,
+                "cover_date": comic.cover_date.isoformat() if comic.cover_date else None,
+                "story_titles": comic.story_titles if comic.story_titles else [],
+            }
         })
 
     else:
